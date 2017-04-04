@@ -6,9 +6,9 @@ import './App.css';
 function DisplayMovie(props) {
   return (
     <div id='movie'>
-      <h3>{props.movie.title}</h3>
-      <h6>{props.movie.year}</h6>
-      <img src={props.movie.poster} />
+      <h3 id='movie-title'>{props.movie.title}</h3>
+      <h6 id='movie-year'>{props.movie.year}</h6>
+      <img id='movie-poster' src={props.movie.poster} alt='' />
     </div>
   )
 }
@@ -26,10 +26,11 @@ class App extends Component {
     }
     this.findMovie = this.findMovie.bind(this);
     this.handleMovieResponse = this.handleMovieResponse.bind(this);
+    this.updateSearch = this.updateSearch.bind(this);
   }
 
   findMovie() {
-    let query = 'https://www.omdbapi.com/?t=The Master';
+    let query = 'https://www.omdbapi.com/?t=' + this.state.search;
     fetch(query)
       .then(response => response.json())
       .then(json => this.handleMovieResponse(json))
@@ -50,12 +51,21 @@ class App extends Component {
     });
   }
 
+  updateSearch(e) {
+    this.setState({
+      search: e.target.value
+    })
+  }
+
   render() {
     return (
-      <div className="App">
-        <h1 id="header">Hello world!</h1>
-        <button onClick={this.findMovie}>Search</button>
-        <DisplayMovie movie={this.state.movie} />
+      <div className='App'>
+        <div id='app-div'>
+          <h4>Enter a movie title</h4>
+          <input id='movie-search' value={this.state.search} onChange={this.updateSearch} />
+          <button id='search-button' onClick={this.findMovie}>Search</button>
+          <DisplayMovie movie={this.state.movie} />
+        </div>
       </div>
     );
   }

@@ -1,7 +1,34 @@
 .App {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  display: flex;
+}
+
+#app-div {
+  width: 70%;
+  margin: auto auto;
   text-align: center;
 }
 
-#header {
-  color: red;
+#movie-search {
+  width: 50%;
+  margin: 0 auto;
+  margin-bottom: 5%;
+  display: block;
 }
+
+#search-button {
+  margin: 0 auto;
+  width: 50%;
+  height: 5%;
+  display: block;
+}
+
+#movie {
+  text-align: center;
+}
+
+/*#movie-title {
+  text-align: center;
+}*/
