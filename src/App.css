@@ -7,11 +7,13 @@
 
 #app-div {
   width: 70%;
-  margin: auto auto;
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
   text-align: center;
 }
 
-#movie-search {
+#search-input {
   width: 50%;
   margin: 0 auto;
   margin-bottom: 5%;
@@ -23,12 +25,20 @@
   width: 50%;
   height: 5%;
   display: block;
+  background-color: white;
+  border: 2px solid black;
+}
+
+#search-button:hover {
+  background-color: blue;
+  cursor: pointer;
 }
 
 #movie {
   text-align: center;
 }
 
-/*#movie-title {
-  text-align: center;
-}*/
+#movie-poster {
+  width: 25%;
+  height: 25%;
+}
