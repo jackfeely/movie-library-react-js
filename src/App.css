@@ -41,4 +41,11 @@
 #movie-poster {
   width: 25%;
   height: 25%;
+  margin-bottom: 5%;
+}
+
+#recommend-button {
+  display: block;
+  width: 50%;
+  margin: 0 auto;
 }

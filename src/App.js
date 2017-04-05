@@ -3,20 +3,56 @@ import logo from './logo.svg';
 import './App.css';
 
 
-function Movie(props) {
-  console.log(props);
-  if (props.movie.title) {
+class Recommended extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    let recommendedMovies = this.props.recommended;
+    let recommendedList = recommendedMovies.map((movie) =>
+      <li className='recommended-li' key={recommendedMovies.indexOf(movie)}>{movie.title}</li>
+    );
+    if (this.props.recommended.length > 0) {
+      return (
+        <div id='recommended-div'>
+          <ul id='recommended-ul'>
+            {recommendedList}
+          </ul>
+        </div>
+      )
+    }
     return (
-      <div id='movie'>
-        <h3 id='movie-title'>{props.movie.title}</h3>
-        <h6 id='movie-year'>{props.movie.year}</h6>
-        <img id='movie-poster' src={props.movie.poster} alt='' />
-      </div>
+      <div></div>
     )
   }
-  return (
-    <div id='movie'></div>
-  )
+}
+
+class Movie extends Component {
+  constructor(props) {
+    super(props);
+    this.sendRecommendedMovie = this.sendRecommendedMovie.bind(this);
+  }
+
+  sendRecommendedMovie() {
+    this.props.sendRecommended(this.props.movie);
+  }
+
+  render() {
+    if (this.props.movie.title) {
+      return (
+        <div id='movie'>
+          <h3 id='movie-title'>{this.props.movie.title}</h3>
+          <h6 id='movie-year'>{this.props.movie.year}</h6>
+          <img id='movie-poster' src={this.props.movie.poster} alt='' />
+          <button id='recommend-button' onClick={this.sendRecommendedMovie}>Recommend</button>
+        </div>
+      )
+    }
+    return (
+      <div id='movie'></div>
+    )
+  }
 }
 
 class SearchForm extends Component {
@@ -67,19 +103,31 @@ class App extends Component {
         title: '',
         year: '',
         poster: ''
-      }
+      },
+      recommended: []
     }
     this.handleMovieResponse = this.handleMovieResponse.bind(this);
+    this.handleRecommended = this.handleRecommended.bind(this);
   }
 
-  handleMovieResponse(response) {
+  handleMovieResponse(movieResponse) {
     this.setState({
       movie: {
-        title: response.Title,
-        year: response.Year,
-        poster: response.Poster
+        title: movieResponse.Title,
+        year: movieResponse.Year,
+        poster: movieResponse.Poster
       }
     });
+  }
+
+  handleRecommended(movie) {
+    let recommendedMovies = this.state.recommended;
+    if (!recommendedMovies.includes(movie)) {
+      recommendedMovies.push(movie);
+    }
+    this.setState({
+      recommended: recommendedMovies
+    })
   }
 
   render() {
@@ -88,7 +136,8 @@ class App extends Component {
         <div id='app-div'>
           <h4>Enter a movie title</h4>
           <SearchForm sendMovieResponse={this.handleMovieResponse} />
-          <Movie movie={this.state.movie} />
+          <Movie movie={this.state.movie} sendRecommended={this.handleRecommended} />
+          <Recommended recommended={this.state.recommended} />
         </div>
       </div>
     );
