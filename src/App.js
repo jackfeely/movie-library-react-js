@@ -16,6 +16,7 @@ class Recommended extends Component {
     if (this.props.recommended.length > 0) {
       return (
         <div id='recommended-div'>
+          <h3>Recommended Movies</h3>
           <ul id='recommended-ul'>
             {recommendedList}
           </ul>
@@ -23,7 +24,10 @@ class Recommended extends Component {
       )
     }
     return (
-      <div></div>
+      <div id='recommended-div'>
+        <h3 id='recommended-header'>Recommended Movies</h3>
+        <p id='recommended-empty-note'>No recommended movies...search first, then recommend</p>
+      </div>
     )
   }
 }
@@ -32,6 +36,19 @@ class Movie extends Component {
   constructor(props) {
     super(props);
     this.sendRecommendedMovie = this.sendRecommendedMovie.bind(this);
+    this.showInfo = this.showInfo.bind(this);
+    this.hideInfo = this.hideInfo.bind(this);
+  }
+
+  
+  showInfo() {
+    document.querySelector('#show-info-button').style.display = 'none';
+    document.querySelector('#info-div').style.display = 'block';
+  }
+
+  hideInfo() {
+    document.querySelector('#info-div').style.display = 'none';
+    document.querySelector('#show-info-button').style.display = 'block';
   }
 
   sendRecommendedMovie() {
@@ -45,7 +62,21 @@ class Movie extends Component {
           <h3 id='movie-title'>{this.props.movie.title}</h3>
           <h6 id='movie-year'>{this.props.movie.year}</h6>
           <img id='movie-poster' src={this.props.movie.poster} alt='' />
-          <button id='recommend-button' onClick={this.sendRecommendedMovie}>Recommend</button>
+          <button id='show-info-button' onClick={this.showInfo}>See more info</button>
+          <div id='info-div'>
+            <ul id='info-ul'>
+              <li className='info-li'><span className='info-li-category'>Director</span><span className='info-li-info'>{this.props.movie.director}</span></li>
+              <li className='info-li'><span className='info-li-category'>Writer</span><span className='info-li-info'>{this.props.movie.writer}</span></li>
+              <li className='info-li'><span className='info-li-category'>Genre</span><span className='info-li-info'>{this.props.movie.genre}</span></li>
+              <li className='info-li'><span className='info-li-category'>Country</span><span className='info-li-info'>{this.props.movie.country}</span></li>
+              <li className='info-li'><span className='info-li-category'>Rated</span><span className='info-li-info'>{this.props.movie.rated}</span></li>
+              <li className='info-li'><span className='info-li-category'>Runtime</span><span className='info-li-info'>{this.props.movie.runtime}</span></li>
+              <li className='info-li'><span className='info-li-category'>Production</span><span className='info-li-info'>{this.props.movie.production}</span></li>
+              <li className='info-li'><span className='info-li-category'>Released</span><span className='info-li-info'>{this.props.movie.released}</span></li>
+            </ul>
+            <button id='hide-info-button' onClick={this.hideInfo}>Hide info</button>
+          </div>
+          <button id='recommend-button' onClick={this.sendRecommendedMovie}>Recommend <b>{this.props.movie.title}</b></button>
         </div>
       )
     }
@@ -115,7 +146,17 @@ class App extends Component {
       movie: {
         title: movieResponse.Title,
         year: movieResponse.Year,
-        poster: movieResponse.Poster
+        poster: movieResponse.Poster,
+        actors: movieResponse.Actors,
+        country: movieResponse.Country,
+        director: movieResponse.Director,
+        genre: movieResponse.Genre,
+        plot: movieResponse.Plot,
+        production: movieResponse.Production,
+        rated: movieResponse.Rated,
+        released: movieResponse.Released,
+        runtime: movieResponse.Runtime,
+        writer: movieResponse.Writer
       }
     });
   }
@@ -134,7 +175,7 @@ class App extends Component {
     return (
       <div className='App'>
         <div id='app-div'>
-          <h4>Enter a movie title</h4>
+          <h3 id='app-div-header'>Enter a movie title</h3>
           <SearchForm sendMovieResponse={this.handleMovieResponse} />
           <Movie movie={this.state.movie} sendRecommended={this.handleRecommended} />
           <Recommended recommended={this.state.recommended} />

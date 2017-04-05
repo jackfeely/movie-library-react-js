@@ -1,7 +1,4 @@
 .App {
-  height: 100%;
-  width: 100%;
-  position: fixed;
   display: flex;
 }
 
@@ -10,6 +7,9 @@
   margin: auto;
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+#app-div-header {
   text-align: center;
 }
 
@@ -23,7 +23,7 @@
 #search-button {
   margin: 0 auto;
   width: 50%;
-  height: 5%;
+  height: 10%;
   display: block;
   background-color: white;
   border: 2px solid black;
@@ -34,18 +34,90 @@
   cursor: pointer;
 }
 
-#movie {
+#movie-title {
+  text-align: center;
+}
+
+#movie-year {
   text-align: center;
 }
 
 #movie-poster {
   width: 25%;
   height: 25%;
+  margin: 0 auto;
   margin-bottom: 5%;
+  display: block;
+}
+
+#show-info-button {
+  margin: 0 auto;
+  width: 50%;
+  height: 10%;
+  display: block;
+  background-color: white;
+  border: 2px solid black;
+  margin-bottom: 20px;
+}
+
+#show-info-button:hover {
+  background-color: blue;
+  cursor: pointer;
+}
+
+#info-div {
+  display: none;
+}
+
+#info-ul {
+  list-style: none;
+}
+
+#plot-div {
+  float:right;
+}
+
+.info-li-info {
+  float: right;
+}
+
+#hide-info-button {
+  margin: 0 auto;
+  width: 50%;
+  height: 10%;
+  display: block;
+  background-color: white;
+  border: 2px solid black;
+  margin-bottom: 20px;
+}
+
+#hide-info-button:hover {
+  background-color: blue;
+  cursor: pointer;
 }
 
 #recommend-button {
-  display: block;
-  width: 50%;
   margin: 0 auto;
+  width: 50%;
+  height: 10%;
+  display: block;
+  background-color: white;
+  border: 2px solid black;
+}
+
+#recommend-button:hover {
+  background-color: blue;
+  cursor: pointer;
+}
+
+#recommended-header {
+  text-align: center;
+}
+
+#recommended-empty-note {
+  text-align: center;
+}
+
+#recommended-ul {
+  list-style: none;
 }
